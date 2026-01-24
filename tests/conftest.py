@@ -1,26 +1,17 @@
 # tests/conftest.py
 import pytest
-# Предположим, у нас есть такой модуль для работы с БД
-import src.db_connector as db_connector
 
+# Для примера создадим простой класс пользователя
+class User:
+    def __init__(self, name, role):
+        self.name = name
+        self.role = role
 
-@pytest.fixture(scope="session")
-def db_connection():
-    # --- SETUP ---
-    # Этот код выполнится один раз в начале всего запуска
-    print("\nУстановка соединения с БД...")
-    connection = db_connector.connect("test_db_host")
+    def is_admin(self):
+        return self.role == "admin"
 
-    yield connection
-
-    # --- TEARDOWN ---
-    # Этот код выполнится один раз в самом конце всего запуска
-    print("\nЗакрытие соединения с БД...")
-    connection.close()
-
-
-# Теперь любой тест в проекте может безопасно использовать эту фикстуру
-@pytest.mark.skip(reason="no import db_connector")
-def test_some_db_operation(db_connection):
-    # ... использует `db_connection` ...
-    assert True
+@pytest.fixture
+def admin_user():
+    """Фикстура, создающая объект пользователя с правами админа."""
+    print("\n[conftest] Создание admin_user")
+    return User(name="Admin", role="admin")

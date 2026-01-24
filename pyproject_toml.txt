@@ -1,0 +1,13 @@
+[tool.pytest.ini_options]
+# Обратите внимание на кавычки вокруг всей строки опций
+addopts = "-v --strict-markers"
+
+# Список папок
+testpaths = ["tests"]
+
+# Список маркеров
+markers = [
+    "smoke: Дымовые тесты",
+    "regression: Регрессионные тесты",
+    "slow: Медленные тесты",
+]

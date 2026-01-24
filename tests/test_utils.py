@@ -1,6 +1,7 @@
 # tests/test_utils.py
 import pytest
 from src.utils import is_even
+from src.utils import get_random_number
 
 @pytest.mark.parametrize("number, expected_result", [
     (2, True),   # 1-й запуск: number=2, expected_result=True
@@ -12,3 +13,8 @@ from src.utils import is_even
 def test_is_even_with_various_numbers(number, expected_result):
     # Логика теста описана всего один раз!
     assert is_even(number) == expected_result
+
+
+def test_get_random_number(mocker):
+    mocker.patch('src.utils.random.randint', return_value=42)
+    assert get_random_number() == 42
